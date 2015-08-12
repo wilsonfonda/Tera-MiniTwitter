@@ -1,0 +1,15 @@
+venv/
+secret_key.txt
+log.txt
+*.json
+.vimrc
+*.pem
+*.rdb
+.coverage
+tera.pyc
+wsgi.pyc
+config.pyc
+*.crt
+*.key
+*.csr
+*.key.org

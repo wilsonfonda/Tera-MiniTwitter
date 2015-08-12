@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1"><title> Hello {% block title %}{% endblock %} | Tera</title>
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/bootstrap.css')}}">
+        <link rel="stylesheet" type="text/css" href="{{url_for('static',filename='css/style.css')}}">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+	<script src="{{url_for('static',filename='js/bootstrap.min.js')}}"></script>
+    </head>
+    <body>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="{{url_for('index')}}">Tera</a>
+                </div>
+                <div id="navbar" class="navbar-collapse collapse">
+                    {% if g.user %}
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false"><span class="glyphicon glyphicon-cog" aria-hidden="true"></span><span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="/signout">Sign out</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <form class="navbar-form navbar-right" action="/search" method="post">
+                        <div class="form-group">
+                            <input name="inputSearch" type="text" placeholder="Search User" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success">Go!</button>
+                    </form>
+                    {% else %}
+		    <form class="navbar-form navbar-right" action="/signin" method="post">
+                        <div class="form-group">
+                            <input name="logEmail" type="email" placeholder="Email" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <input name="logPassword" type="password" placeholder="Password" class="form-control">
+                        </div>
+                        <button type="submit" class="btn btn-success">Sign in</button>
+			<a href="/loginplus">
+				<img src="/static/signin_button.png" style="height:40px;">
+			</a>
+	    	    </form>
+                    {% endif %}
+                </div><!--/.navbar-collapse -->
+            </div>
+        </nav>
+        {% with flashes = get_flashed_messages() %}
+        {% if flashes %}
+	{% if error %}
+	<div class="alert alert-danger alert-dismissible" style="padding-top:40px" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <p>{{ error }} Error</p>
+            <ul class="flashes">
+                {% for message in flashes %}
+                <li>{{ message }}
+                    {% endfor %}
+            </ul>
+
+        </div>
+	{% else %}
+	<div class="sr-only">
+                {% for message in flashes %}
+                <p class="flashes">{{ message }}
+                    {% endfor %}
+        </div>
+	{% endif %}
+        {% endif %}
+        {% endwith %}
+        {% block body %}{% endblock %}
+        <div class="container">
+            <hr>
+            <footer>
+                <p>Tera 2015 by Wilson </p>
+            </footer>
+        </div>
+    </body>
+</html>

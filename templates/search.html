@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}{{g.user.get('firstName')}}{% endblock %}
+{% block body %}
+<br>
+<br>
+<br>
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <h1 class="text-center">Search Result</h1>
+            <hr>
+        </div>
+    </div>
+    {% for m in matching %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <blockquote>
+                <h4 class="media-heading"><a href="/{{m.get('userID')}}">{{m.get('firstName')}} {{m.get('lastName')}}</a></h4>
+                <p class="text-muted">{{m.get('email')}}</p>
+            </blockquote>
+        </div>
+    </div>
+    {% else %}
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <blockquote>
+                There are no user with that name
+            </blockquote>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

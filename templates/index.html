@@ -1,0 +1,61 @@
+{% extends "layout.html" %}
+{% block body%}
+<div class="jumbotron">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<h1>Welcome Teran</h1>
+				<p>Share us your thoughts to make better world</p>
+			</div>
+			<div class="col-md-5">
+				<h1>Join Us Now!</h1>
+				<p>We are always open to newcomers</p>
+				<form action="/signup" method="post">
+					<div class="form-inline form-group">
+						<input type="text" class="form-control" name="inputFirstName" placeholder="First Name">
+						<input type="text" class="form-control" name="inputLastName" placeholder="Last Name">
+					</div>
+					<div class="form-group">
+						<input type="email" class="reduce-width form-control" name="suEmail" placeholder="Email">
+					</div>
+					<div class="form-group">
+						<input type="password" class="reduce-width form-control" name="suPassword" placeholder="Password">
+					</div>
+					<button type="submit" class="btn btn-success">Sign up</button> 
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="container"> 
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<h1 class="text-center">Public Timeline</h1>
+			<hr>
+		</div>
+	</div>
+	{% for post in posts %}
+	<div class="row">
+		<div class="col-md-8 col-md-offset-2">
+			<blockquote>
+				<h4 class="media-heading">{{userPost[post]['firstName']}}</h3>
+				<p>{{postData[post]['content']}}</p>
+				{% if postData[post]['imageURL'] %}
+				<a href="{{postData[post]['imageURL']}}" class="thumbnail">
+				<img src='{{postData[post]['imageURL']}}' class="img-responsive">
+			</a>
+			{% endif %}
+		{% if postData[post]['datetime'] %}
+		<p class="text-muted text-right"><small>
+		<script>
+var postDate{{post}} = new Date('{{postData[post]["datetime"]}}');
+document.write(postDate{{post}}.toDateString()+' '+postDate{{post}}.getHours()+":"+postDate{{post}}.getMinutes()+":"+postDate{{post}}.getSeconds());
+	</script></small>
+		</p>
+		{% endif %}
+			</blockquote>
+		</div>
+	</div>
+	{% endfor %}
+</div>
+{% endblock %}

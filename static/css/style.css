@@ -1,0 +1,15 @@
+body { padding-top: 30px; }
+
+body .jumbotron !important
+{
+    padding-top: 0px;
+}
+
+.glyphicon.glyphicon-pencil {
+    font-size: 12px;
+    padding-right: 10px;
+}
+
+.reduce-width {
+    width:80%;
+}
